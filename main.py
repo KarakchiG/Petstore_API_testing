@@ -26,6 +26,3 @@ params = {
 
 create_pet_response = requests.post(url, json=params)
 print(create_pet_response.status_code)
-
-# pull, push, commit, add, fetch, clone, git checkout, branches, git status
-# add git ignore .idea/vcs.xml
