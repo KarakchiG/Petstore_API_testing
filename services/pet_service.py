@@ -7,6 +7,9 @@ class PetService:
     def get_pet(self, pet_id):
         return requests.get(self.url + f"/{pet_id}")
 
+    def get_pet_wrong_url(self, pet_id):
+        return requests.get(url="http://localhost:8080/pet" + f"/{pet_id}")
+
     def get_pets_by_status(self, status):
         return requests.get(self.url + f"/findByStatus?status={status}")
 

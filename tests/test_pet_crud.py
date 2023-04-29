@@ -41,6 +41,11 @@ def test_pet_find_by_id(pet_service):
     assert data["id"] == 1
 
 
+def test_get_pet_wrong_url(pet_service):
+    response = pet_service.get_pet_wrong_url(1)
+    assert response.status_code == 404
+
+
 def test_find_pets_by_status(pet_service):
     searched_status = "available"
     response = pet_service.get_pets_by_status(searched_status)
@@ -70,6 +75,7 @@ def test_update_fake_pet(pet_service, fake_pet):
     updated_pet["status"] = "unavailable"
     response = pet_service.update_pet(json=updated_pet)
     data = response.json()
+    assert response.status_code == 200
     assert data["status"] == "unavailable"
 
 
