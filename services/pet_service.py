@@ -7,17 +7,14 @@ class PetService:
     def get_pet(self, pet_id):
         return requests.get(self.url + f"/{pet_id}")
 
-    def get_pet_wrong_url(self, pet_id):
-        return requests.get(url="http://localhost:8080/pet" + f"/{pet_id}")
-
     def get_pets_by_status(self, status):
-        return requests.get(self.url + f"/findByStatus?status={status}")
+        return requests.get(f"{self.url}/findByStatus?status={status}")
 
-    def create_pet(self, json):
-        return requests.post(self.url, json=json)
+    def create_pet(self, params):
+        return requests.post(self.url, json=params)
 
-    def update_pet(self, json):
-        return requests.put(self.url, json=json)
+    def update_pet(self, params):
+        return requests.put(self.url, json=params)
 
     def delete_pet(self, pet_id):
         return requests.delete(self.url + f"/{pet_id}")
