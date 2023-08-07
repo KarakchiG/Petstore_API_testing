@@ -16,8 +16,12 @@ def user_service():
     return UserService()
 
 
+class PetCreationError(Exception):
+    pass
+
+
 @pytest.fixture()
-def fake_pet(pet_service, **kwargs):
+def created_pet(pet_service, **kwargs):
     params = {
         "category": {
             "id": kwargs.get("id", 1),
@@ -36,4 +40,7 @@ def fake_pet(pet_service, **kwargs):
         "status": "available"
     }
     response = pet_service.create_pet(params)
-    return response.json()
+    if response.status_code != 200:
+        raise PetCreationError(f"Pet creation failed with error: {response.content}")
+    else:
+        return response.json()

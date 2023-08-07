@@ -19,8 +19,22 @@ class PetService:
     url = "http://localhost:8080/api/pet"
 
     def get_pet(self, pet_id):
+
         response = requests.get(self.url + f"/{pet_id}")
-        return response, Pet(**response.json())
+
+        if response.status_code == 200:
+            data = response.json()
+            pet = Pet(
+                id=data["id"],
+                name=data["name"],
+                status=data["status"],
+                category=data["category"],
+                tags=data["tags"],
+                photoUrls=data["photoUrls"]
+            )
+            return response, pet
+        else:
+            return response
 
     def get_pets_by_status(self, status):
         return requests.get(f"{self.url}/findByStatus?status={status}")
